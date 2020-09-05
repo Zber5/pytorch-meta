@@ -98,7 +98,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser('Model-Agnostic Meta-Learning (MAML)')
 
-    parser.add_argument('folder', type=str,
+    parser.add_argument('--folder', type=str,
         help='Path to the folder the data is downloaded to.')
     parser.add_argument('--num-shots', type=int, default=5,
         help='Number of examples per class (k in "k-shot", default: 5).')
@@ -116,7 +116,7 @@ if __name__ == '__main__':
         help='Path to the output folder for saving the model (optional).')
     parser.add_argument('--batch-size', type=int, default=16,
         help='Number of tasks in a mini-batch of tasks (default: 16).')
-    parser.add_argument('--num-batches', type=int, default=100,
+    parser.add_argument('--num-batches', type=int, default=1000,
         help='Number of batches the model is trained over (default: 100).')
     parser.add_argument('--num-workers', type=int, default=1,
         help='Number of workers for data loading (default: 1).')
@@ -126,7 +126,9 @@ if __name__ == '__main__':
         help='Use CUDA if available.')
 
     args = parser.parse_args()
+    args.download = False
     args.device = torch.device('cuda' if args.use_cuda
         and torch.cuda.is_available() else 'cpu')
-
+    args.folder = "/Users/zber/ProgramDev/pytorch-meta/data"
+    args.output_folder = "/Users/zber/ProgramDev/pytorch-meta/output"
     train(args)

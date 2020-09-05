@@ -1,6 +1,7 @@
 import torch.nn as nn
 from torchmeta.modules import (MetaModule, MetaSequential, MetaConv2d,
                                MetaBatchNorm2d, MetaLinear)
+from torchsummary import  summary
 
 
 def conv3x3(in_channels, out_channels, **kwargs):
@@ -32,3 +33,8 @@ class ConvolutionalNeuralNetwork(MetaModule):
         features = features.view((features.size(0), -1))
         logits = self.classifier(features, params=self.get_subdict(params, 'classifier'))
         return logits
+
+#
+# if __name__ == "__main__":
+#     model = ConvolutionalNeuralNetwork(in_channels = 3, out_features=5)
+#     summary(model,(3,80,80))
